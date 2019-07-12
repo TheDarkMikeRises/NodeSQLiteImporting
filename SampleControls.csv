@@ -1,0 +1,6 @@
+Name,Reference,Category,Date_Created,Date_Reviewed,Notes
+Policies for information Security,FJ - A.5.1.1,Information security policies,,,"A set of policies for information security shall be defined, approved by management, published and communicated to employees and relevant external parties"
+Review of the policies for information security,FJ - A.5.1.2,Information security policies,,,"The policies for information security shall be reviewed at planned intervals or if significant changes occur to ensure their continuing suitability, adequacy and effectiveness."
+Information security roles and responsibilities,FJ - A.6.1.1,Organization of information security,,,All information security responsibilities shall be defined and allocated.
+Segragation of Duties,FJ - A.6.1.2,Organization of information security,,,Conflicting duties and areas of responsibility shall be segregated to reduce opportunities for unauthorized or unintentional modification or misuse of the organization’s assets.
+Contact with authorities,FJ - A.6.1.3,Organization of information security,,,Appropriate contacts with relevant authorities shall be maintained.
