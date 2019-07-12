@@ -4,15 +4,16 @@ var multer = require('multer');
 const fs = require('fs');
 const csv = require('csv-parser');
 const sqlite = require('sqlite3');
+const readline = require('readline');
 const results = [];
 
 console.log("hi");
 
 function run(filePath) {
-    let db = new sqlite.Database(filePath);
+    let db = new sqlite.Database('test.db');
     let sql = 'INSERT INTO Control(Name, Category, Reference, Date_Created, Date_Reviewed) VALUES ((?),(?),(?),(?),(?))';
     console.log("Hi");
-    fs.createReadStream('test.csv')
+    fs.createReadStream(filePath)
         .pipe(csv())
         .on('data', (data) => results.push(data))
         .on('end', () => {
@@ -26,5 +27,11 @@ function run(filePath) {
         });
 }
 
-console.log("Enter file path");
-run(console.readline());
+const r1 = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
+})
+r1.question('Enter the filepath of your csv file:\n', (answer) => {
+    run(answer);
+    r1.close();
+});
