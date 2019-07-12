@@ -65,7 +65,8 @@ app.post('/upload',function(req,res) {
                 } else {
                     // Print the converted json
                     //console.log(result);
-                    res.json({error_code:0,err_desc:null,data:result});
+                    //res.json({error_code:0,err_desc:null,data:result});
+                    res.json('Pushed to database');
                     pushToDB(result);
                     return;
                 }
