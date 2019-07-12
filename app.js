@@ -8,11 +8,22 @@ var xlsxtojson = require('xlsx-to-json-lc');
 var jsdom = require("jsdom");
 const {JSDOM} = jsdom;
 const {window} = new JSDOM();
+const {app1, BrowserWindow} = require('electron');
 //var XMLHttpRequest = require("x")
 var $ = jQuery = require('jquery')(window);
 
 const sqlite3 = require('sqlite3').verbose();
 let db = new sqlite3.Database('./test.db');
+
+function createWindow () {
+    win = new BrowserWindow({
+        width: 800,
+        height: 600
+    })
+    win.loadURL('http://localhost:3000/');
+}
+
+
 
 // Parse the posted data
 app.use(bodyParser.json());
@@ -81,6 +92,7 @@ app.post('/upload',function(req,res) {
 app.get('/',function(req,res){
     res.sendFile(__dirname + "/index.html");
 });
+
 app.listen('3000', function(){
     console.log('');
 });
