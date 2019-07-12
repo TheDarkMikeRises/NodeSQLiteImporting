@@ -14,7 +14,7 @@ var storage = multer.diskStorage({
     },
     filename: function(req, file, cb) {
         var timeStamp = Date.now();
-        cb(null, file.fieldname+timeStamp);
+        cb(null, file.originalname+timeStamp);
     }
 });
 
@@ -56,10 +56,11 @@ app.post('/upload',function(req,res) {
                     console.error(err);
                 } else {
                     // Print the converted json
-                    //console.log(result);
+                    console.log(result);
+                    res.json({error_code:0,err_desc:null,data:result});
+                    return;
                 }
             });
-            //console.log(result);
         } catch (e) {
             console.error(e);
         }
