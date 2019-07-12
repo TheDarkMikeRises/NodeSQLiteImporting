@@ -5,6 +5,14 @@ var bodyParser = require('body-parser');
 var multer = require('multer');
 var xlstojson = require('xls-to-json-lc');
 var xlsxtojson = require('xlsx-to-json-lc');
+var jsdom = require("jsdom");
+const {JSDOM} = jsdom;
+const {window} = new JSDOM();
+//var XMLHttpRequest = require("x")
+var $ = jQuery = require('jquery')(window);
+
+const sqlite3 = require('sqlite3').verbose();
+let db = new sqlite3.Database('./test.db');
 
 // Parse the posted data
 app.use(bodyParser.json());
@@ -56,8 +64,9 @@ app.post('/upload',function(req,res) {
                     console.error(err);
                 } else {
                     // Print the converted json
-                    console.log(result);
+                    //console.log(result);
                     res.json({error_code:0,err_desc:null,data:result});
+                    pushToDB(result);
                     return;
                 }
             });
@@ -74,3 +83,35 @@ app.get('/',function(req,res){
 app.listen('3000', function(){
     console.log('');
 });
+
+
+
+function pushToDB(json) {
+    console.log(json);
+    var values = [];
+    for(const value of json) {
+        values.push($.map(value, (el) => {
+        return el;
+        }))
+    }
+    var placeholders = values.map((values) => '((?),(?),(?),(?))').join(',');
+    var sql = `INSERT INTO Control(Notes, Name, Reference, Category) VALUES ` + placeholders;
+    console.log(values);
+    db.run(sql, extract(values), function(err) {
+        console.log(`Rows inserted ${this.changes}`);
+        if(err) {
+            console.log(key)
+            return console.error(err.message);
+        }
+    })
+    db.close();
+}
+
+function extract(array) {
+    var array2 = [];
+    for(var i = 0; i < array.length; i++){
+    array2 = array2.concat(array[i]);
+    }
+    console.log(array2);
+    return array2;
+}
